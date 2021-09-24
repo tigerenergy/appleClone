@@ -10,7 +10,7 @@ html
 body
 {
     overflow-x: hidden;
-    color: rbg(29, 29, 31);
+    color: rgb(29, 29, 31);
     letter-spacing: -0.05em;
     background: white;
 }
@@ -18,17 +18,50 @@ p
 {
     line-height:  1.6;
 }
+
+a
+{
+    color: rgb(29, 29, 31);
+    text-decoration: none;
+}
 .global-nav
 {
     height: 44px;
 
 }
-.global-nav-links
+
+.local-nav
+{
+    height: 52px;
+    border-bottom: 1px solid #ddd;
+}
+
+.global-nav-links,
+.local-nav-links
 {
     display: flex;
-    justify-content: space-between;
     align-items: center;
     max-width: 1000px;
     height: 100%;
     margin: 0 auto;
+}
+.global-nav-links
+{
+    justify-content: space-between;
+}
+.local-nav-links .product-name
+{   
+    font-size: 1.4rem;
+    font-weight: bold;
+    margin-right: auto;
+}
+
+.local-nav-links a
+{
+    font-size: 0.8rem;
+}
+
+.local-nav-links a:not(.product-name)
+{
+    margin-left: 2em;
 }
