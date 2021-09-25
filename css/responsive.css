@@ -12,7 +12,8 @@
         font-size: 4vw;
     }
     .discription
-    {
+    {   
+
         font-size: 2rem;
     }
     .discription strong
@@ -30,5 +31,13 @@
     .desc-message
     {
         width: 20%;
+    }
+    .mid-message
+    {
+        font-size: 4vw;
+    }
+    .canvas-caption
+    {
+        font-size: 2rem;
     }
 }

@@ -114,6 +114,8 @@ a
     padding: 0 1rem;
     font-size: 1.2rem;
     color: #888;
+    max-width: 1000px;
+    margin: 0 auto;
 }
 .discription strong
 {   
@@ -140,6 +142,8 @@ a
     padding: 0 1rem;
     font-size: 2rem;
     color: #888;
+    max-width: 1000px;
+    margin: 0 auto;
 }
 .mid-message strong
 {
@@ -150,6 +154,8 @@ a
     color: #888;
     padding: 0 1rem;
     font-size: 1.2rem;
+    max-width: 1000px;
+    margin: 0 auto;
 }
 
 .footer
