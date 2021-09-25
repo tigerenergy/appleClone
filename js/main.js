@@ -1,6 +1,10 @@
 (() =>
-{
-    const sceneInfo = [
+{   
+
+    let yOffset = 0 // window.pageYOffset 대신 사용할 변수
+
+    const sceneInfo = 
+    [
         {   
             // 0
             type: 'sticky',
@@ -53,11 +57,23 @@
             sceneInfo[i].scrollHeight = sceneInfo[i].heightNum * window.innerHeight
             sceneInfo[i].objects.container.style.height = `${sceneInfo[i].scrollHeight}px`
          }
-
-
          
-        }
-        window.addEventListener('resize', setLayout)
+    }
 
+        
+    const scrollLoop = () =>
+    {   
+        console.log(yOffset)
+    }
+        
+        
+        
+        
+    window.addEventListener('resize', setLayout)
+    window.addEventListener('scroll',() =>
+    {
+        yOffset = window.pageYOffset
+        scrollLoop()
+    })
         setLayout()
 })()
