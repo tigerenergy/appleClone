@@ -2,6 +2,8 @@
 {   
 
     let yOffset = 0 // window.pageYOffset 대신 사용할 변수
+    let prevScrollHeight = 0 // 현재 스크롤 위치(yOffset)보다 이전에 위치한 스크롤 섹션들의 스크롤 높이값의 합
+    let currentScene = 0 // 현재 활성하된(눈 앞에 보고 있는 ) 화면
 
     const sceneInfo = 
     [
@@ -52,18 +54,33 @@
     const setLayout = () =>
     {
         // 각 스크롤 섹션의 높이 세팅
-        for(let i = 0; i < sceneInfo.length; i++)
-         {
+        for( let i = 0; i < sceneInfo.length; i++ )
+        {
             sceneInfo[i].scrollHeight = sceneInfo[i].heightNum * window.innerHeight
-            sceneInfo[i].objects.container.style.height = `${sceneInfo[i].scrollHeight}px`
-         }
+            sceneInfo[i].objects.container.style.height = `${sceneInfo[i].scrollHeight}px`    
+        }
          
     }
 
         
     const scrollLoop = () =>
     {   
-        console.log(yOffset)
+        prevScrollHeight = 0 // 값 초기화
+
+        for( let i = 0; i < currentScene; i++ )
+        {
+            prevScrollHeight += sceneInfo[i].scrollHeight
+        }
+            if( yOffset > prevScrollHeight + sceneInfo[currentScene].scrollHeight)
+            {
+                currentScene ++
+            }
+            if( yOffset < prevScrollHeight)
+            {   
+                if( currentScene === 0) return //모바일 바운스 때문에 
+                currentScene --
+            }             
+            console.log(currentScene)
     }
         
         
