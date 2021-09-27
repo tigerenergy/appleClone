@@ -80,7 +80,7 @@
                 if( currentScene === 0) return //모바일 바운스 때문에 
                 currentScene --
             }             
-            console.log(currentScene)
+            document.body.setAttribute('id', `show-scene-${currentScene}`)
     }
         
         
