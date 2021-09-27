@@ -59,6 +59,18 @@
             sceneInfo[i].scrollHeight = sceneInfo[i].heightNum * window.innerHeight
             sceneInfo[i].objects.container.style.height = `${sceneInfo[i].scrollHeight}px`    
         }
+
+        let totalScrollHeight = 0
+        for ( let i = 0; i < sceneInfo.length; i++ )
+        {
+            totalScrollHeight += sceneInfo[i].scrollHeight
+            if( totalScrollHeight  > pageYOffset )
+            {   
+                currentScene = i
+                break
+            }
+            document.body.setAttribute('id' , `show-scene-${currentScene}`)
+        }
          
     }
 
@@ -86,11 +98,11 @@
         
         
         
-    window.addEventListener('resize', setLayout)
     window.addEventListener('scroll',() =>
     {
         yOffset = window.pageYOffset
         scrollLoop()
     })
-        setLayout()
+    window.addEventListener('load', setLayout)
+    window.addEventListener('resize', setLayout)
 })()
