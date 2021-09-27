@@ -59,18 +59,20 @@
             sceneInfo[i].scrollHeight = sceneInfo[i].heightNum * window.innerHeight
             sceneInfo[i].objects.container.style.height = `${sceneInfo[i].scrollHeight}px`    
         }
+        yOffset = window.pageYOffset
 
         let totalScrollHeight = 0
+
         for ( let i = 0; i < sceneInfo.length; i++ )
         {
             totalScrollHeight += sceneInfo[i].scrollHeight
-            if( totalScrollHeight  > pageYOffset )
+            if( totalScrollHeight  >= yOffset )
             {   
                 currentScene = i
-                break
+                break;
             }
-            document.body.setAttribute('id' , `show-scene-${currentScene}`)
         }
+        document.body.setAttribute('id', `show-scene-${currentScene}`)
          
     }
 
@@ -86,13 +88,14 @@
             if( yOffset > prevScrollHeight + sceneInfo[currentScene].scrollHeight)
             {
                 currentScene ++
+                document.body.setAttribute('id', `show-scene-${currentScene}`)
             }
             if( yOffset < prevScrollHeight)
             {   
                 if( currentScene === 0) return //모바일 바운스 때문에 
                 currentScene --
+                document.body.setAttribute('id', `show-scene-${currentScene}`)
             }             
-            document.body.setAttribute('id', `show-scene-${currentScene}`)
     }
         
         
