@@ -4,6 +4,7 @@
     let yOffset = 0 // window.pageYOffset 대신 사용할 변수
     let prevScrollHeight = 0 // 현재 스크롤 위치(yOffset)보다 이전에 위치한 스크롤 섹션들의 스크롤 높이값의 합
     let currentScene = 0 // 현재 활성하된(눈 앞에 보고 있는 ) 화면
+    let enterNewScene = false // 새로운 scene이 시작되는 순간 false
 
     const sceneInfo = 
     [
@@ -118,6 +119,7 @@
         
     const scrollLoop = () =>
     {   
+        enterNewScene = false
         prevScrollHeight = 0 // 값 초기화
 
         for( let i = 0; i < currentScene; i++ )
@@ -125,16 +127,21 @@
             prevScrollHeight += sceneInfo[i].scrollHeight
         }
             if( yOffset > prevScrollHeight + sceneInfo[currentScene].scrollHeight)
-            {
+            {   
+                enterNewScene = true
                 currentScene ++
                 document.body.setAttribute('id', `show-scene-${currentScene}`)
             }
             if( yOffset < prevScrollHeight)
             {   
                 if( currentScene === 0) return //모바일 바운스 때문에 
+                enterNewScene = true
                 currentScene --
                 document.body.setAttribute('id', `show-scene-${currentScene}`)
-            }        
+            }
+
+            if( enterNewScene ) return       
+            console.log(currentScene)
             playAnimation()     
     }
         
