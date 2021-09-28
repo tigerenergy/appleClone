@@ -13,7 +13,7 @@
         {   
             // 0
             type: 'sticky',
-            heightNum : 10, // 브라우저 높이의 5배로 scrollHeight 세팅
+            heightNum : 5, // 브라우저 높이의 5배로 scrollHeight 세팅
             scrollHeight: 0,
             objects:
             {
@@ -47,7 +47,7 @@
         {
             // 2
             type: 'sticky',
-            heightNum : 10, 
+            heightNum : 5, 
             scrollHeight: 0,    
             objects:
             {
@@ -57,7 +57,7 @@
         {
             // 3
             type: 'sticky',
-            heightNum : 10, 
+            heightNum : 5, 
             scrollHeight: 0,    
             objects:
             {
@@ -75,8 +75,16 @@
         // 각 스크롤 섹션의 높이 세팅
         for( let i = 0; i < sceneInfo.length; i++ )
         {
-            sceneInfo[i].scrollHeight = sceneInfo[i].heightNum * window.innerHeight
-            sceneInfo[i].objects.container.style.height = `${sceneInfo[i].scrollHeight}px`    
+            if( sceneInfo[i].type === 'sticky')
+            {
+                sceneInfo[i].scrollHeight = sceneInfo[i].heightNum * window.innerHeight
+                sceneInfo[i].objects.container.style.height = `${sceneInfo[i].scrollHeight}px`    
+            }
+            else if( sceneInfo[i].type === 'normal')
+            {
+                sceneInfo[i].scrollHeight = sceneInfo[i].objects.container.offsetHeight
+            }
+                sceneInfo[i].objects.container.style.height = `${sceneInfo[i].scrollHeight}px`
         }
         yOffset = window.pageYOffset
 
@@ -142,25 +150,20 @@
         const values = sceneInfo[currentScene].values
         const currentYOffset = yOffset - prevScrollHeight
         const scrollHeight = sceneInfo[currentScene].scrollHeight
-        const scrollRatio = ( yOffset - prevScrollHeight) / scrollHeight
+        const scrollRatio = currentYOffset / scrollHeight
 
         switch ( currentScene )
         {
             case 0:
-                const messageA_opacity_in = calcValues(values.messageA_opacity_in , currentYOffset)
-                const messageA_opacity_out = calcValues(values.messageA_opacity_out , currentYOffset)
-                const messageA_translateY_in = calcValues(values.messageA_translateY_in , currentYOffset)
-                const messageA_translateY_out = calcValues(values.messageA_translateY_out , currentYOffset)
-
                 if( scrollRatio <= 0.22)
                 {
-                    objects.messageA.style.opacity = messageA_opacity_in
-                    objects.messageA.style.transform = `translateY(${messageA_translateY_in}%)`
+                    objects.messageA.style.opacity = calcValues(values.messageA_opacity_in , currentYOffset)
+                    objects.messageA.style.transform = calcValues(values.messageA_translateY_in , currentYOffset)
                 } 
                 else
                 {
-                    objects.messageA.style.opacity = messageA_opacity_out
-                    objects.messageA.style.transform = `translateY(${messageA_translateY_out}%)`
+                    objects.messageA.style.opacity = calcValues(values.messageA_opacity_out , currentYOffset)
+                    objects.messageA.style.transform = calcValues(values.messageA_translateY_out , currentYOffset)
                 }
                 
                 break    

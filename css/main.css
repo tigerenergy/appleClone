@@ -146,6 +146,19 @@ a
     height: 100px;
     background:rgb(29, 29, 31);
 }
+
+#scroll-section-2 .b
+{
+    top: 10%;
+    left: 40%;
+}
+
+#score-section-2 .c
+{
+    top: 15%;
+    left: 45%;
+}
+
 .mid-message
 {
     padding: 0 1rem;
