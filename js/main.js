@@ -13,7 +13,7 @@
         {   
             // 0
             type: 'sticky',
-            heightNum : 5, // 브라우저 높이의 5배로 scrollHeight 세팅
+            heightNum : 10, // 브라우저 높이의 5배로 scrollHeight 세팅
             scrollHeight: 0,
             objects:
             {
@@ -47,7 +47,7 @@
         {
             // 2
             type: 'sticky',
-            heightNum : 5, 
+            heightNum : 10, 
             scrollHeight: 0,    
             objects:
             {
@@ -57,7 +57,7 @@
         {
             // 3
             type: 'sticky',
-            heightNum : 5, 
+            heightNum : 10, 
             scrollHeight: 0,    
             objects:
             {
