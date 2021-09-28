@@ -23,7 +23,7 @@
             values:
             {
                 messageA_opacity: [ 0, 1 ],
-                
+
             }
 
         },
@@ -85,6 +85,36 @@
          
     }
 
+    const calcValues = ( values, currentYOffset ) =>
+    {
+        let rv
+        let scrollRatio = currentYOffset / sceneInfo[currentScene].scrollHeight
+        // 현재 스크롤섹션에서 스크롤된 비율로 구하기
+        rv =  scrollRatio * ( values[1] - values[0]) + values[0]
+        return rv
+    }
+
+    const playAnimation = () =>
+    {   
+        const objects = sceneInfo[currentScene].objects
+        const values = sceneInfo[currentScene].values
+        const currentYOffset = yOffset - prevScrollHeight
+
+        switch ( currentScene )
+        {
+            case 0:
+                let messageA_opacity_in = calcValues(values.messageA_opacity , currentYOffset)
+                objects.messageA.style.opacity = messageA_opacity_in
+                break    
+            case 1:
+                break    
+            case 2:
+                break    
+            case 3:
+                break    
+        }    
+    }
+
         
     const scrollLoop = () =>
     {   
@@ -104,7 +134,8 @@
                 if( currentScene === 0) return //모바일 바운스 때문에 
                 currentScene --
                 document.body.setAttribute('id', `show-scene-${currentScene}`)
-            }             
+            }        
+            playAnimation()     
     }
         
         
