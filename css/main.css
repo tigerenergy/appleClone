@@ -220,4 +220,13 @@ img
 .sticky-elem-canvas
 {
     top: 0;
+    height: 100%;
+}
+
+.sticky-elem-canvas canvas
+{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+
 }

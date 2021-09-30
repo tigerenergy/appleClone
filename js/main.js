@@ -29,8 +29,8 @@
             },
             values:
             {   
-                videoImageCount: 1500,
-                imageSequence: [0, 1499],
+                videoImageCount: 578,
+                imageSequence: [0, 577],
                 messageA_opacity_in: [0, 1, { start: 0.1, end: 0.2 }],
                 messageB_opacity_in: [0, 1, { start: 0.3, end: 0.4 }],
                 messageC_opacity_in: [0, 1, { start: 0.5, end: 0.6 }],
@@ -164,6 +164,9 @@
             }
         }
         document.body.setAttribute('id', `show-scene-${currentScene}`)
+
+        const heightRatio = window.innerHeight / 1080
+        sceneInfo[0].objects.canvas.style.transform = `translate3d(-50%, -50%, 0) scale(${heightRatio})`
          
     }
 
