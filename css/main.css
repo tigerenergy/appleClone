@@ -93,7 +93,10 @@ img
 }
 
 #scroll-section-0 h1
-{
+{   
+    position: relative;
+    top: -10vh;
+    z-index: 5;
     font-size: 4rem;
     text-align: center;
 }
@@ -136,6 +139,7 @@ img
     color: white;
     max-width: 1000px;
     margin: 0 auto;
+    text-align: justify;
 }
 .discription strong
 {   
@@ -146,7 +150,8 @@ img
 }
 
 .desc-message
-{
+{   
+    opacity: 0;
     width: 50%;
     font-weight: bold;
 }
