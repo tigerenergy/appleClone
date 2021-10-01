@@ -235,3 +235,8 @@ img
     left: 50%;
 
 }
+
+.image-blend-canvas
+{
+    border: 3px solid red;
+}

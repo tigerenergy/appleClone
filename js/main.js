@@ -114,7 +114,9 @@
             objects:
             {
                 container: document.querySelector('#scroll-section-3'),
-                canvasCaption: document.querySelector('.canvas-caption')
+                canvasCaption: document.querySelector('.canvas-caption'),
+                canvas: document.querySelector('.image-blend-canvas'),
+                context: document.querySelector('#video-canvas').getContext('2d')
             },
             values:
             {
@@ -356,6 +358,7 @@
 
                 break
             case 3:
+                 // 가로 세로 모두 꽉 차게 하기 위해 여기세 세팅   
                 break    
         }    
     }
