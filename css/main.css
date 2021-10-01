@@ -192,11 +192,8 @@ img
 
 .mid-message .shadow-text
 {
-    padding: 0 1rem;
     font-size: 5rem;
     font-weight: bold;
-    max-width: 1000px;
-    margin: 0 auto;
     color: white;
   
 }

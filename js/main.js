@@ -396,10 +396,12 @@
                     if(!values.rectStartY)
                     {   
                         // values.rectStartY = objects.canvas.getBoundingClientRect().top
-                        values.rectStartY = objects.canvas.offsetTop
-                        console.log(values.rectStartY)
+                        values.rectStartY = objects.canvas.offsetTop + (objects.canvas.height - objects.canvas.height * canvasScaleRatio) / 2
+
+                        values.rect1X[2].start = (window.innerHeight / 2) / scrollHeight
+                        values.rect2X[2].start = (window.innerHeight / 2) / scrollHeight
                         values.rect1X[2].end = values.rectStartY / scrollHeight 
-                        values.rect1X[2].end = values.rectStartY / scrollHeight 
+                        values.rect2X[2].end = values.rectStartY / scrollHeight 
                     }
 
                     const whiteRectWidth = recalculatedInnerWidth * 0.15
