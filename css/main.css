@@ -238,5 +238,12 @@ img
 
 .image-blend-canvas
 {
-    border: 3px solid red;
+    
+}
+
+#scroll-section-3
+{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }

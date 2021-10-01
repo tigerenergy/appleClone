@@ -82,8 +82,8 @@
             },
             values:
             {   
-                videoImageCount: 622,
-                imageSequence: [0, 621],
+                videoImageCount: 621,
+                imageSequence: [0, 620],
                 canvas_opacity_in: [0,1,{ start: 0, end: 0.1}],
                 canvas_opacity_out: [1,0,{ start: 0.9, end: 0.95}],
                 messageA_translateY_in: [20, 0, { start: 0.15, end: 0.2 }],
@@ -116,7 +116,12 @@
                 container: document.querySelector('#scroll-section-3'),
                 canvasCaption: document.querySelector('.canvas-caption'),
                 canvas: document.querySelector('.image-blend-canvas'),
-                context: document.querySelector('#video-canvas').getContext('2d')
+                context: document.querySelector('.image-blend-canvas').getContext('2d'),
+                imagesPath: [
+                    './images/blend-image-1.jpg',
+                    './images/blend-image-2.jpg',
+                ],
+                images: []
             },
             values:
             {
@@ -134,20 +139,27 @@
             imgElem = new Image()
             imgElem.src =`./video/IMG_${5555 + i}.jpg`
             sceneInfo[0].objects.videoImages.push(imgElem)
-        }    
+        }   
+
         let imgElem2
-        for( let i = 0; i < sceneInfo[0].values.videoImageCount; i++)
+        for( let i = 0; i < sceneInfo[2].values.videoImageCount; i++)
         {
             imgElem2 = new Image()
             imgElem2.src =`./video/IMG_${6134 + i}.jpg`
             sceneInfo[2].objects.videoImages.push(imgElem2)
+        }
+
+        let imgElem3
+        for ( let i = 0; i < sceneInfo[3].objects.imagesPath.length; i++)
+        {   
+            imgElem3 = new Image()
+            imgElem3.src = sceneInfo[3].objects.imagesPath[i]
+            sceneInfo[3].objects.images.push(imgElem3)
         }    
-        
+
     }
     
     setCanvasImages()
-
-
 
 
 
@@ -242,7 +254,6 @@
                 let sequence = Math.round(calcValues(values.imageSequence, currentYOffset))
                 objects.context.drawImage(objects.videoImages[sequence], 0, 0)
                 objects.canvas.style.opacity = calcValues(values.canvas_opacity, currentYOffset)
-                console.log(scrollRatio)
 
                 if (scrollRatio <= 0.22)
                 {
@@ -358,7 +369,22 @@
 
                 break
             case 3:
-                 // 가로 세로 모두 꽉 차게 하기 위해 여기세 세팅   
+                    // 가로 세로 모두 꽉 차게 하기 위해 여기세 세팅   
+                    const widthRatio = window.innerWidth / objects.canvas.width
+                    const heightRatio = window.innerHeight / objects.canvas.height
+                    let canvasScaleRatio
+
+                    if(widthRatio <= heightRatio)
+                    {   
+                        // 캔버스보다 브라우저 창이 홀쭉한 경우
+                        canvasScaleRatio = heightRatio   
+                    }
+                    else
+                    {   // 캔버스보다 브라우저 창이 납작한 경우
+                        canvasScaleRatio = widthRatio
+                    }
+                    objects.canvas.style.transform =`scale(${canvasScaleRatio})`
+                    objects.context.drawImage(objects.images[0], 0, 0)
                 break    
         }    
     }
