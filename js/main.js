@@ -240,6 +240,7 @@
                 let sequence = Math.round(calcValues(values.imageSequence, currentYOffset))
                 objects.context.drawImage(objects.videoImages[sequence], 0, 0)
                 objects.canvas.style.opacity = calcValues(values.canvas_opacity, currentYOffset)
+                console.log(scrollRatio)
 
                 if (scrollRatio <= 0.22)
                 {
