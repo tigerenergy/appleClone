@@ -127,6 +127,7 @@
             {
                 rect1X: [0, 0, { start: 0, end: 0}],
                 rect2X: [0, 0, { start: 0, end: 0}],
+                rectStartY: 0
             }
         }
 
@@ -384,13 +385,22 @@
                     {   // 캔버스보다 브라우저 창이 납작한 경우
                         canvasScaleRatio = widthRatio
                     }
-                    objects.canvas.style.transform =`scale(${canvasScaleRatio})`
+                    // objects.canvas.style.transform =`scale(${canvasScaleRatio})`
                     objects.context.drawImage(objects.images[0], 0, 0)
 
                     // 캔버스 사이즈에 맞춰 가정한 innerWidth와 innerHeight 
 
-                    const recalculatedInnerWidth = window.innerWidth / canvasScaleRatio
+                    const recalculatedInnerWidth = document.body.offsetWidth / canvasScaleRatio
                     const recalculatedInnerHeight = window.innerHeight / canvasScaleRatio
+
+                    if(!values.rectStartY)
+                    {   
+                        // values.rectStartY = objects.canvas.getBoundingClientRect().top
+                        values.rectStartY = objects.canvas.offsetTop
+                        console.log(values.rectStartY)
+                        values.rect1X[2].end = values.rectStartY / scrollHeight 
+                        values.rect1X[2].end = values.rectStartY / scrollHeight 
+                    }
 
                     const whiteRectWidth = recalculatedInnerWidth * 0.15
                     values.rect1X[0] = (objects.canvas.width - recalculatedInnerWidth ) / 2
@@ -399,8 +409,13 @@
                     values.rect2X[1] = values.rect2X[0] + whiteRectWidth
 
                     // 좌우 흰색 박스 그리기
-                    objects.context.fillRect(values.rect1X[0], 0, parseInt(whiteRectWidth), recalculatedInnerHeight)
-                    objects.context.fillRect(values.rect2X[0], 0, parseInt(whiteRectWidth), recalculatedInnerHeight)
+                    
+                    // objects.context.fillRect(values.rect1X[0], 0, parseInt(whiteRectWidth), recalculatedInnerHeight)
+                    // objects.context.fillRect(values.rect2X[0], 0, parseInt(whiteRectWidth), recalculatedInnerHeight)
+
+                    objects.context.fillRect(parseInt(calcValues(values.rect1X , currentYOffset)), 0, parseInt(whiteRectWidth), objects.canvas.height)
+                    objects.context.fillRect(parseInt(calcValues(values.rect2X , currentYOffset)), 0, parseInt(whiteRectWidth), objects.canvas.height)
+
 
                 break    
         }    
