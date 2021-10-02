@@ -417,8 +417,6 @@
 
                     objects.context.fillRect(parseInt(calcValues(values.rect1X , currentYOffset)), 0, parseInt(whiteRectWidth), objects.canvas.height)
                     objects.context.fillRect(parseInt(calcValues(values.rect2X , currentYOffset)), 0, parseInt(whiteRectWidth), objects.canvas.height)
-
-
                 break    
         }    
     }
