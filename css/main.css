@@ -133,6 +133,7 @@ img
     font-size: 3.5rem;
 }
 
+
 .discription 
 {   
     padding: 0 1rem;
@@ -245,9 +246,10 @@ img
     left: 50%;
 }
 
-.image-blend-canvas
+.image-blend-canvas.sticky
 {
-    
+    position: fixed;
+    top: 0;
 }
 
 #scroll-section-3

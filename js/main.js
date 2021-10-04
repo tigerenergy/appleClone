@@ -111,7 +111,7 @@
             heightNum : 5, 
             scrollHeight: 0,    
             objects:
-            {
+            {   
                 container: document.querySelector('#scroll-section-3'),
                 canvasCaption: document.querySelector('.canvas-caption'),
                 canvas: document.querySelector('.image-blend-canvas'),
@@ -123,15 +123,16 @@
                 images: []
             },
             values:
-            {
+            {   
                 rect1X: [0, 0, { start: 0, end: 0}],
                 rect2X: [0, 0, { start: 0, end: 0}],
+                imageBlendY: [0, 0, { start: 0, end: 0}],
                 rectStartY: 0
+
             }
         }
-
+        
     ]
-
     const setCanvasImages = () =>
     {   
         let imgElem
@@ -370,12 +371,53 @@
 
                     // currentScene 3에서 쓰는 캔버스를 미리 그려주기 시작
 
-                break
-            case 3:
-                    // 가로 세로 모두 꽉 차게 하기 위해 여기세 세팅   
+                if (scrollRatio > 0.9)
+                {   
+                    const objects = sceneInfo[3].objects
+                    const values = sceneInfo[3].values
                     const widthRatio = window.innerWidth / objects.canvas.width
                     const heightRatio = window.innerHeight / objects.canvas.height
                     let canvasScaleRatio
+
+                    if(widthRatio <= heightRatio)
+                    {   
+                        // 캔버스보다 브라우저 창이 홀쭉한 경우
+                        canvasScaleRatio = heightRatio   
+                    }
+                    else
+                    {   // 캔버스보다 브라우저 창이 납작한 경우
+                        canvasScaleRatio = widthRatio
+                    }
+                    // objects.canvas.style.transform =`scale(${canvasScaleRatio})`
+                    objects.context.drawImage(objects.images[0], 0, 0)
+
+                    // 캔버스 사이즈에 맞춰 가정한 innerWidth와 innerHeight 
+
+                    const recalculatedInnerWidth = document.body.offsetWidth / canvasScaleRatio
+                    const recalculatedInnerHeight = window.innerHeight / canvasScaleRatio
+
+
+                    const whiteRectWidth = recalculatedInnerWidth * 0.15
+                    values.rect1X[0] = (objects.canvas.width - recalculatedInnerWidth ) / 2
+                    values.rect1X[1] = values.rect1X[0] - whiteRectWidth
+                    values.rect2X[0] = values.rect1X[0] + recalculatedInnerWidth - whiteRectWidth
+                    values.rect2X[1] = values.rect2X[0] + whiteRectWidth
+
+                    // 좌우 흰색 박스 그리기
+
+                    objects.context.fillRect(parseInt(values.rect1X[0]),0, parseInt(whiteRectWidth), objects.canvas.height)
+                    objects.context.fillRect(parseInt(values.rect2X[0]),0, parseInt(whiteRectWidth), objects.canvas.height)
+                }
+
+                break
+            case 3:
+
+                    // 가로 세로 모두 꽉 차게 하기 위해 여기세 세팅   
+                    const widthRatio = window.innerWidth / objects.canvas.width
+                    const heightRatio = window.innerHeight / objects.canvas.height
+                    
+                    let canvasScaleRatio
+                    let step
 
                     if(widthRatio <= heightRatio)
                     {   
@@ -418,6 +460,21 @@
 
                     objects.context.fillRect(parseInt(calcValues(values.rect1X , currentYOffset)), 0, parseInt(whiteRectWidth), objects.canvas.height)
                     objects.context.fillRect(parseInt(calcValues(values.rect2X , currentYOffset)), 0, parseInt(whiteRectWidth), objects.canvas.height)
+
+                    if(scrollRatio < values.rect1X[2].end)
+                    {
+                        step = 1
+                        objects.canvas.classList.remove('sticky')
+                    }
+                    else
+                    {
+                        step = 2
+                        // imageBlendY: [0, 0, { start: 0, end: 0}]
+                        objects.context.drawImage(objects.images[1], 0, 200)
+                        objects.canvas.classList.add('sticky')
+                        objects.canvas.style.top = `${-(objects.canvas.height - objects.canvas.height * canvasScaleRatio) / 2 }px`
+                    }
+
                 break    
         }    
     }
