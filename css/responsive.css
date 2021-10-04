@@ -5,7 +5,7 @@
 {
     #scroll-section-0 h1
     {
-        font-size: 9vw;
+        font-size: 12vw;
     }
     .main-message
     {
@@ -13,7 +13,6 @@
     }
     .discription
     {   
-
         font-size: 2rem;
     }
     .discription strong
@@ -33,11 +32,13 @@
         width: 20%;
     }
     .mid-message
-    {
+    {   
+        padding: 0;
         font-size: 4vw;
     }
     .canvas-caption
-    {
+    {   
+        padding: 0;
         font-size: 2rem;
     }
     #scroll-section-2 .b

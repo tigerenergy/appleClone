@@ -167,14 +167,14 @@ img
 
 #scroll-section-2 .b
 {
-    top: 10%;
+    top: 20%;
     left: 40%;
 }
 
 #scroll-section-2 .c
 {
     top: 15%;
-    left: 45%;
+    left: 55%;
 }
 
 .mid-message
@@ -182,7 +182,7 @@ img
     padding: 0 1rem;
     font-size: 2rem;
     color:white;
-    max-width: 1000px;
+    width: 1000px;
     margin: 0 auto;
 }
 .mid-message strong
@@ -205,17 +205,11 @@ img
     font-size: 1.2rem;
     max-width: 1000px;
     margin: 0 auto;
+    opacity: 0;
+    z-index: -10;
 }
 
-.footer
-{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 7rem;
-    color: white;
-    background: darkorange;
-}
+
 
 .sticky-elem
 {   

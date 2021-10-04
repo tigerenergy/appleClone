@@ -127,6 +127,9 @@
                 rect1X: [0, 0, { start: 0, end: 0}],
                 rect2X: [0, 0, { start: 0, end: 0}],
                 blendHeight: [0, 0, { start: 0, end: 0}],
+                canvas_scale: [0, 0, { start: 0, end: 0}],
+                canvasCaption_opacity: [0, 1, { start: 0, end: 0}],
+                canvasCaption_translateY: [20, 1, { start: 0, end: 0}],
                 rectStartY: 0
 
             }
@@ -483,6 +486,33 @@
 
                         objects.canvas.classList.add('sticky')
                         objects.canvas.style.top = `${-(objects.canvas.height - objects.canvas.height * canvasScaleRatio) / 2 }px`
+
+                        if(scrollRatio > values.blendHeight[2].end)
+                        {
+                            values.canvas_scale[0] = canvasScaleRatio
+                            values.canvas_scale[1] = document.body.offsetWidth / (1.5 * objects.canvas.width)
+                            values.canvas_scale[2].start = values.blendHeight[2].end
+                            values.canvas_scale[2].end = values.canvas_scale[2].start + 0.2
+
+                            objects.canvas.style.transform =`scale(${calcValues(values.canvas_scale, currentYOffset)})`
+                            objects.canvas.style.marginTop = 0
+                        }
+                        if(scrollRatio > values.canvas_scale[2].end && values.canvas_scale[2].end > 0)
+                        {
+                            objects.canvas.classList.remove('sticky')
+                            objects.canvas.style.marginTop = `${scrollHeight * 0.4}px`
+
+                            values.canvasCaption_opacity[2].start = values.canvas_scale[2].end
+                            values.canvasCaption_opacity[2].end = values.canvasCaption_opacity[2].start + 0.1
+
+                            values.canvasCaption_translateY[2].start = values.canvas_scale[2].end
+                            values.canvasCaption_translateY[2].end = values.canvasCaption_opacity[2].start + 0.1
+
+                            
+
+                            objects.canvasCaption.style.opacity = calcValues(values.canvasCaption_opacity, currentYOffset)
+                            objects.canvasCaption.style.transform = `translate3d(0, ${calcValues(values.canvasCaption_translateY, currentYOffset)}%, 0)`
+                        }
                     }
 
                 break    
