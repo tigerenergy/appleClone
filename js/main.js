@@ -126,7 +126,7 @@
             {   
                 rect1X: [0, 0, { start: 0, end: 0}],
                 rect2X: [0, 0, { start: 0, end: 0}],
-                imageBlendY: [0, 0, { start: 0, end: 0}],
+                blendHeight: [0, 0, { start: 0, end: 0}],
                 rectStartY: 0
 
             }
@@ -469,8 +469,18 @@
                     else
                     {
                         step = 2
-                        // imageBlendY: [0, 0, { start: 0, end: 0}]
-                        objects.context.drawImage(objects.images[1], 0, 200)
+                        values.blendHeight[0] = 0
+                        values.blendHeight[1] = objects.canvas.height
+                        values.blendHeight[2].start = values.rect1X[2].end
+                        values.blendHeight[2].end = values.blendHeight[2].start + 0.2
+
+                        const blendHeight = calcValues(values.blendHeight, currentYOffset)
+
+                        objects.context.drawImage(objects.images[1],
+                        0, objects.canvas.height - blendHeight, objects.canvas.width, blendHeight,
+                        0, objects.canvas.height - blendHeight, objects.canvas.width, blendHeight)
+                        
+
                         objects.canvas.classList.add('sticky')
                         objects.canvas.style.top = `${-(objects.canvas.height - objects.canvas.height * canvasScaleRatio) / 2 }px`
                     }
