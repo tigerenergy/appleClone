@@ -368,6 +368,8 @@
                     objects.pinC.style.transform = `scaleY(${calcValues(values.pinC_scaleY, currentYOffset)})`;
                 }
 
+                    // currentScene 3에서 쓰는 캔버스를 미리 그려주기 시작
+
                 break
             case 3:
                     // 가로 세로 모두 꽉 차게 하기 위해 여기세 세팅   
