@@ -147,7 +147,7 @@ img
 }
 
 
-.discription 
+.description 
 {   
     padding: 0 1rem;
     font-size: 1.2rem;
@@ -156,7 +156,7 @@ img
     margin: 0 auto;
     text-align: justify;
 }
-.discription strong
+.description strong
 {   
     float: left;
     margin-right: 0.2rem;
@@ -186,8 +186,14 @@ img
 
 #scroll-section-2 .c
 {
-    top: 15%;
-    left: 55%;
+    top: 41%;
+    left: 37%;
+    font-size: 3rem;
+}
+
+#scroll-section-2 .pin
+{
+    color:red;
 }
 
 .mid-message

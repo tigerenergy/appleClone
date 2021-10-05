@@ -88,23 +88,20 @@
                 canvas_opacity_in: [0,1,{ start: 0, end: 0.1}],
                 canvas_opacity_out: [1,0,{ start: 0.9, end: 0.95}],
                 messageA_translateY_in: [20, 0, { start: 0.15, end: 0.2 }],
-                messageB_translateY_in: [30, 0, { start: 0.5, end: 0.55 }],
+                messageB_translateY_in: [30, 0, { start: 0.6, end: 0.65 }],
                 messageC_translateY_in: [30, 0, { start: 0.72, end: 0.77 }],
                 messageA_opacity_in: [0, 1, { start: 0.15, end: 0.2 }],
-                messageB_opacity_in: [0, 1, { start: 0.5, end: 0.55 }],
-                messageC_opacity_in: [0, 1, { start: 0.72, end: 0.77 }],
+                messageB_opacity_in: [0, 1, { start: 0.6, end: 0.65 }],
+                messageC_opacity_in: [0, 1, { start: 0.90, end: 0.95 }],
                 messageA_translateY_out: [0, -20, { start: 0.3, end: 0.35 }],
                 messageB_translateY_out: [0, -20, { start: 0.58, end: 0.63 }],
-                messageC_translateY_out: [0, -20, { start: 0.85, end: 0.9 }],
+                messageC_translateY_out: [0, -80, { start: 0.85, end: 0.9 }],
                 messageA_opacity_out: [1, 0, { start: 0.3, end: 0.35 }],
-                messageB_opacity_out: [1, 0, { start: 0.58, end: 0.63 }],
-                messageC_opacity_out: [1, 0, { start: 0.85, end: 0.9 }],
+                messageB_opacity_out: [1, 0, { start: 0.68, end: 0.73 }],
+                messageC_opacity_out: [1, 0, { start: 0.96, end: 0.99 }],
                 pinB_scaleY: [0.5, 1, { start: 0.6, end: 0.65 }],
-                pinC_scaleY: [0.5, 1, { start: 0.87, end: 0.92 }],
                 pinB_opacity_in: [0, 1, { start: 0.6, end: 0.65 }],
-                pinC_opacity_in: [0, 1, { start: 0.87, end: 0.92 }],
                 pinB_opacity_out: [1, 0, { start: 0.68, end: 0.73 }],
-                pinC_opacity_out: [1, 0, { start: 0.95, end: 1 }]
             }
         },
         {
@@ -165,8 +162,6 @@
         }    
 
     }
-    setCanvasImages()
-
 
     const checkMenu = () =>
     {
@@ -329,8 +324,8 @@
     
                 break
             case 2:
-                let sequence2 = Math.round(calcValues(values.imageSequence, currentYOffset))
-                objects.context.drawImage(objects.videoImages[sequence2], 0, 0)
+                // let sequence2 = Math.round(calcValues(values.imageSequence, currentYOffset))
+                // objects.context.drawImage(objects.videoImages[sequence2], 0, 0)
 
                 if (scrollRatio <= 0.5)
                 {   
@@ -377,14 +372,12 @@
                     // in
                     objects.messageC.style.transform = `translate3d(0, ${calcValues(values.messageC_translateY_in, currentYOffset)}%, 0)`;
                     objects.messageC.style.opacity = calcValues(values.messageC_opacity_in, currentYOffset);
-                    objects.pinC.style.transform = `scaleY(${calcValues(values.pinC_scaleY, currentYOffset)})`;
                 }
                 else
                 {
                     // out
                     objects.messageC.style.transform = `translate3d(0, ${calcValues(values.messageC_translateY_out, currentYOffset)}%, 0)`;
                     objects.messageC.style.opacity = calcValues(values.messageC_opacity_out, currentYOffset);
-                    objects.pinC.style.transform = `scaleY(${calcValues(values.pinC_scaleY, currentYOffset)})`;
                 }
 
                     // currentScene 3에서 쓰는 캔버스를 미리 그려주기 시작
@@ -541,18 +534,19 @@
     {   
         enterNewScene = false
         prevScrollHeight = 0 // 값 초기화
+        delayedYOffset = delayedYOffset + (yOffset - delayedYOffset) * acc
 
         for( let i = 0; i < currentScene; i++ )
         {
             prevScrollHeight += sceneInfo[i].scrollHeight
         }
-            if( yOffset > prevScrollHeight + sceneInfo[currentScene].scrollHeight)
+            if( delayedYOffset > prevScrollHeight + sceneInfo[currentScene].scrollHeight)
             {   
                 enterNewScene = true
                 currentScene ++
                 document.body.setAttribute('id', `show-scene-${currentScene}`)
             }
-            if( yOffset < prevScrollHeight)
+            if( delayedYOffset < prevScrollHeight)
             {   
                 if( currentScene === 0) return //모바일 바운스 때문에 
                 enterNewScene = true
@@ -565,54 +559,32 @@
     }
         
 
-    // const loop = () =>
-    // {   
-    //     delayedYOffset = delayedYOffset + (yOffset - delayedYOffset) * acc
-
-    //     const currentYOffset = delayedYOffset - prevScrollHeight;
-    //     const objects = sceneInfo[currentScene].objects
-    //     const values = sceneInfo[currentScene].values
-
-    //     if( currentScene === 0)
-    //     {   
-    //         let sequence = Math.round(calcValues(values.imageSequence, currentYOffset))
-    //         objects.context.drawImage(objects.videoImages[sequence], 0, 0)
-    //     }
-
-    //     rafId = requestAnimationFrame(loop)
-        
-
-    //     if(Math.abs(yOffset - delayedYOffset) < 1)
-    //     {
-    //         cancelAnimationFrame(rafId)
-    //         rafState = false
-    //     }
-    // }
         
     const loop = () =>
     {
 		delayedYOffset = delayedYOffset + (yOffset - delayedYOffset) * acc
-
-        const currentYOffset = delayedYOffset - prevScrollHeight
-        const objects = sceneInfo[currentScene].objects
-        const values = sceneInfo[currentScene].values
-
-        if (currentScene === 0 ) 
+        if(!enterNewScene)
         {
-            console.log('loop')
-            let sequence = Math.round(calcValues(values.imageSequence, currentYOffset))
-            if (objects.videoImages[sequence]) 
+            if (currentScene === 0 || currentScene === 2) 
             {
-                objects.context.drawImage(objects.videoImages[sequence], 0, 0)
+                const currentYOffset = delayedYOffset - prevScrollHeight
+                const objects = sceneInfo[currentScene].objects
+                const values = sceneInfo[currentScene].values
+                let sequence = Math.round(calcValues(values.imageSequence, currentYOffset))
+                if (objects.videoImages[sequence]) 
+                {
+                    objects.context.drawImage(objects.videoImages[sequence], 0, 0)
+                    console.log('loop')
+                }
+                    
             }
-                
         }
-        rafId = requestAnimationFrame(loop)
-        if(Math.abs(yOffset - delayedYOffset) < 1)
-        {
-            cancelAnimationFrame(rafId)
-            rafState = false
-        }
+            rafId = requestAnimationFrame(loop)
+            if(Math.abs(yOffset - delayedYOffset) < 1)
+            {
+                cancelAnimationFrame(rafId)
+                rafState = false
+            }
     }   
 
            
@@ -636,5 +608,17 @@
         sceneInfo[0].objects.context.drawImage(sceneInfo[0].objects.videoImages[0], 0, 0)
 
     })
-    window.addEventListener('resize', setLayout)
+
+    window.addEventListener('resize', ()=>
+    {
+        if(window.innerWidth > 900)
+        {
+            setLayout()
+        }
+            sceneInfo[3].values.rectStartY = 0
+    })
+
+    window.addEventListener('orientationchange', setLayout)
+
+    setCanvasImages()
 })()
