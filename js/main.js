@@ -163,8 +163,21 @@
         }    
 
     }
-    
     setCanvasImages()
+
+
+    const checkMenu = () =>
+    {
+        if(yOffset > 44)
+        {
+            document.body.classList.add('local-nav-sticky')
+        }
+        else
+        {
+            document.body.classList.remove('local-nav-sticky')
+        }
+        
+    }
 
 
 
@@ -235,12 +248,12 @@
             {
                 rv = values[1]
             }
-        }
-        else
-        {
-            rv =  scrollRatio * ( values[1] - values[0]) + values[0]
-        }
-        return rv
+            }
+            else
+            {
+                rv =  scrollRatio * ( values[1] - values[0]) + values[0]
+            }
+            return rv
     }
 
 
@@ -558,6 +571,7 @@
     {
         yOffset = window.pageYOffset
         scrollLoop()
+        checkMenu()
     })
 
     window.addEventListener('load', () =>
