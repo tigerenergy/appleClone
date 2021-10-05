@@ -33,22 +33,22 @@
                 videoImageCount: 578,
                 imageSequence: [0, 577],
                 canvas_opacity: [1,0,{ start: 0.9 , end: 1}],
-                messageA_opacity_in: [0, 1, { start: 0.05, end: 0.15 }],
-                messageB_opacity_in: [0, 1, { start: 0.25, end: 0.29 }],
-                messageC_opacity_in: [0, 1, { start: 0.45, end: 0.5 }],
-                messageD_opacity_in: [0, 1, { start: 0.7, end: 0.85 }],
-                messageA_translateY_in: [20, 0, { start: 0.1, end: 0.2 }],
-                messageB_translateY_in: [20, 0, { start: 0.3, end: 0.4 }],
-                messageC_translateY_in: [20, 0, { start: 0.5, end: 0.6 }],
-                messageD_translateY_in: [20, 0, { start: 0.7, end: 0.8 }],
-                messageA_opacity_out: [1, 0, { start: 0.1, end: 0.2 }],
-                messageB_opacity_out: [1, 0, { start: 0.3, end: 0.31}],
-                messageC_opacity_out: [1, 0, { start: 0.55, end: 0.6 }],
-                messageD_opacity_out: [1, 0, { start: 0.9, end: 1.0 }],
-                messageA_translateY_out: [0, -20, { start: 0.25, end: 0.3 }],
-                messageB_translateY_out: [0, -20, { start: 0.45, end: 0.5 }],
-                messageC_translateY_out: [0, -20, { start: 0.65, end: 0.7 }],
-                messageD_translateY_out: [0, -20, { start: 0.85, end: 0.9 }],
+                messageA_opacity_in: [0, 1, { start: 0.1, end: 0.2 }],
+				messageB_opacity_in: [0, 1, { start: 0.3, end: 0.4 }],
+				messageC_opacity_in: [0, 1, { start: 0.5, end: 0.6 }],
+				messageD_opacity_in: [0, 1, { start: 0.7, end: 0.8 }],
+				messageA_translateY_in: [20, 0, { start: 0.1, end: 0.2 }],
+				messageB_translateY_in: [20, 0, { start: 0.3, end: 0.4 }],
+				messageC_translateY_in: [20, 0, { start: 0.5, end: 0.6 }],
+				messageD_translateY_in: [20, 0, { start: 0.7, end: 0.8 }],
+				messageA_opacity_out: [1, 0, { start: 0.25, end: 0.3 }],
+				messageB_opacity_out: [1, 0, { start: 0.45, end: 0.5 }],
+				messageC_opacity_out: [1, 0, { start: 0.65, end: 0.7 }],
+				messageD_opacity_out: [1, 0, { start: 0.85, end: 0.9 }],
+				messageA_translateY_out: [0, -20, { start: 0.25, end: 0.3 }],
+				messageB_translateY_out: [0, -20, { start: 0.45, end: 0.5 }],
+				messageC_translateY_out: [0, -20, { start: 0.65, end: 0.7 }],
+				messageD_translateY_out: [0, -40, { start: 0.85, end: 0.9 }]
 
             }
 
@@ -589,36 +589,41 @@
 
            
         
-    window.addEventListener('scroll',() =>
-    {
-        yOffset = window.pageYOffset
-        scrollLoop()
-        checkMenu()
-
-        if(!rafState)
-        {
-            rafId = requestAnimationFrame(loop)
-            rafState = true
-        }
-    })
+ 
 
     window.addEventListener('load', () =>
-    {
+    {   
+        document.body.classList.remove('before-load')
         setLayout()
         sceneInfo[0].objects.context.drawImage(sceneInfo[0].objects.videoImages[0], 0, 0)
 
-    })
-
-    window.addEventListener('resize', ()=>
-    {
-        if(window.innerWidth > 900)
+        window.addEventListener('scroll',() =>
         {
-            setLayout()
-        }
-            sceneInfo[3].values.rectStartY = 0
+            yOffset = window.pageYOffset
+            scrollLoop()
+            checkMenu()
+    
+            if(!rafState)
+            {
+                rafId = requestAnimationFrame(loop)
+                rafState = true
+            }
+        })
+
+        window.addEventListener('resize', ()=>
+        {
+            if(window.innerWidth > 900)
+            {
+                setLayout()
+                sceneInfo[3].values.rectStartY = 0
+            }
+        })
+
+        window.addEventListener('orientationchange', setLayout)
+        document.querySelector('.loading').addEventListener('transitionend', (event) =>
+        {
+            document.body.removeChild(event.currentTarget)
+        })
     })
-
-    window.addEventListener('orientationchange', setLayout)
-
     setCanvasImages()
 })()

@@ -32,6 +32,15 @@ img
     object-fit: cover;
 }
 
+body.before-load
+{
+    overflow: hidden;
+}
+
+.container
+{
+    overflow-x: hidden;
+}
 
 .global-nav
 {   
@@ -62,7 +71,8 @@ img
     position: fixed;
     top: 0;
     background: rgba(0, 0, 0, 0.1);
-    backdrop-filter: saturate(180%) blur(15px)
+    -webkit-backdrop-filter: saturate(180%) blur(15px);
+    backdrop-filter: saturate(180%) blur(15px);
 }
 
 .global-nav-links,
@@ -203,7 +213,7 @@ img
 .mid-message strong
 {
     color: white;
-    font-size: 7rem;
+    font-size: 6.5rem;
 }
 
 .mid-message .shadow-text
@@ -219,7 +229,8 @@ img
     padding: 0 1rem;
     font-size: 1.2rem;
     max-width: 1000px;
-    margin: 0 auto;
+    margin: -24rem auto 0;
+    padding: 0 1rem;
     opacity: 0;
     z-index: -10;
 }
@@ -240,6 +251,7 @@ img
 #show-scene-3 #scroll-section-3 .sticky-elem
 {
     display: block;
+    will-change: transform, opacity;
 }
 
 .sticky-elem-canvas
@@ -269,16 +281,10 @@ img
 }
 
 
-.footer
-{   top: 10%;
-    left: 0;
-    width: 50%;
-}
-
-
 .logo
 {  
     position: absolute;
+    width: 100%;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%)
@@ -296,8 +302,13 @@ img
     left: 0;
     z-index: 100;
     background: black;
+    opacity: 0;
+    transition: 2s;
+}
+
+.before-load .loading
+{
     opacity: 1;
-    transition: 0.5s;
 }
 
 @keyframes loading-spin
