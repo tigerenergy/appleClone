@@ -33,8 +33,10 @@
     }
     .mid-message
     {   
+        margin-top: 1%;
+        text-align: center;
         padding: 0;
-        font-size: 1vw;
+        font-size: 2vw;
     }
 
     .canvas-caption 
@@ -60,7 +62,35 @@
         position: absolute;
         top: 50%;
         left: 50%;
-        transform: translate(-50%, -50%)
+        transform: translate(-50%, -50%);
+        max-width:1080px;
+    }
+
+    .normal-content{
+        width: 50%;
+        margin-bottom: 10vh;
+        position: relative;
+    }
+
+    .img-fender {
+        position: absolute;
+    }
+    .img-fender.lesson
+    {   
+        position: absolute;
+        top: 30vh;
+        left: 55vw;
+        width: 40vw;
+        height: 40vh;
+    }
+
+    .mid-message.fender
+    {   
+        position: absolute;
+        top: 22vh;
+        left: 50%;
+        font-size: 2rem;
+        color: #fff;
     }
 
 }

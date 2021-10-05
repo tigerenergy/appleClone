@@ -254,6 +254,12 @@ body.before-load
     will-change: transform, opacity;
 }
 
+
+.scroll-effect-end .sticky-elem
+{
+    display: none !important;
+}
+
 .sticky-elem-canvas
 {
     top: 0;
@@ -306,6 +312,10 @@ body.before-load
     transition: 2s;
 }
 
+.before-load .container
+{
+    display: none;
+}
 .before-load .loading
 {
     opacity: 1;
@@ -350,4 +360,9 @@ body.before-load
     stroke-dashoffset: -157;
     fill:transparent;
     animation: loading-circle-ani 1s infinite;
+}
+
+.normal-content
+{
+    margin-bottom: 10rem;
 }

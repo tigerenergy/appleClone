@@ -539,11 +539,24 @@
         for( let i = 0; i < currentScene; i++ )
         {
             prevScrollHeight += sceneInfo[i].scrollHeight
-        }
+        }   
+
+            if( delayedYOffset < prevScrollHeight + sceneInfo[currentScene].scrollHeight)
+            {
+                document.body.classList.remove('scroll-effect-end')
+            }
+
             if( delayedYOffset > prevScrollHeight + sceneInfo[currentScene].scrollHeight)
             {   
                 enterNewScene = true
-                currentScene ++
+                if(currentScene === sceneInfo.length - 1)
+                {
+                    document.body.classList.add('scroll-effect-end')
+                }
+                if(currentScene < sceneInfo.length - 1)
+                {   
+                    currentScene ++
+                }
                 document.body.setAttribute('id', `show-scene-${currentScene}`)
             }
             if( delayedYOffset < prevScrollHeight)
@@ -574,7 +587,6 @@
                 if (objects.videoImages[sequence]) 
                 {
                     objects.context.drawImage(objects.videoImages[sequence], 0, 0)
-                    console.log('loop')
                 }
                     
             }
@@ -597,6 +609,23 @@
         setLayout()
         sceneInfo[0].objects.context.drawImage(sceneInfo[0].objects.videoImages[0], 0, 0)
 
+        let tempYOffset = yOffset
+        let tempScrollCount = 0
+        if (yOffset > 0)
+        {
+            let siId = setInterval(() =>
+            {
+                window.scrollTo(0, tempYOffset)
+                tempYOffset += 5
+                if(tempScrollCount > 20)
+                {   
+                    clearInterval(siId)
+                }
+                tempScrollCount++    
+            },20)
+        }
+        
+
         window.addEventListener('scroll',() =>
         {
             yOffset = window.pageYOffset
@@ -614,12 +643,19 @@
         {
             if(window.innerWidth > 900)
             {
-                setLayout()
-                sceneInfo[3].values.rectStartY = 0
+                window.location.reload()
             }
         })
 
-        window.addEventListener('orientationchange', setLayout)
+        window.addEventListener('orientationchange', () =>
+        {   
+            scrollTo(0, 0)
+            setTimeout(()=>
+            {
+                window.location.reload()
+            },500)
+        })
+
         document.querySelector('.loading').addEventListener('transitionend', (event) =>
         {
             document.body.removeChild(event.currentTarget)
